@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+table,
+tr,
+td,
+th {
+  border: 2px solid black;
+  border-collapse: collapse;
+  padding: 15px;
+}
+
+th {
+  text-align: center;
+  font-weight: bold;
+  background-color: darkblue;
+  color: wheat;
+}
+table{
+  width: 50%;
+}
