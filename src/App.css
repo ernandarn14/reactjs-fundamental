@@ -54,3 +54,12 @@ th {
 table{
   width: 50%;
 }
+img{
+  width: 200px; 
+  height: 300px
+}
+#title:hover{
+  color: blue;
+  cursor: pointer; 
+}
+

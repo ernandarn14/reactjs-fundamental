@@ -2,9 +2,9 @@ import React from 'react'
 
 const TableProduct = () => {
     let arr = [
-        {nama: 'Larva', pekerjaan: 'Cartoonist'},
-        {nama: 'Aku', pekerjaan: 'Developer'},
-        {nama: 'Minion', pekerjaan: 'Actor'}
+        { nama: 'Larva', pekerjaan: 'Cartoonist' },
+        { nama: 'Aku', pekerjaan: 'Developer' },
+        { nama: 'Minion', pekerjaan: 'Actor' }
     ]
 
     const renderArr = () => {
@@ -15,15 +15,15 @@ const TableProduct = () => {
                         {idx += 1}
                     </td>
                     <td>
-                    {val.nama}
+                        {val.nama}
                     </td>
-            <td>{val.pekerjaan}</td>
+                    <td>{val.pekerjaan}</td>
                 </tr>))
-          )
+        )
     }
     return (
         <div>
-            <table align={'center'}>
+            <table align='center'>
                 <thead>
                     <tr>
                         <th>No</th>
