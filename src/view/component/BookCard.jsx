@@ -9,7 +9,7 @@ const BookCard = (props) => {
       style={{
         width: "600px",
         textAlign: "justify",
-        margin: "10px", 
+        margin: "10px",
       }}
     >
       <div className="row">
@@ -26,8 +26,8 @@ const BookCard = (props) => {
             <div className="d-flex justify-content-start">
               <div>
                 <p style={{ fontWeight: "bold" }}>
-                  ${(price - (price * discount) / 100).toFixed(2)}&nbsp;
-            </p>
+                  ${(price - (price * discount) / 100).toFixed(2)}
+                </p>
               </div>
               <div className="ml-2">
                 <p

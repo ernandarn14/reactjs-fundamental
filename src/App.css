@@ -51,15 +51,26 @@ th {
   background-color: darkblue;
   color: wheat;
 }
-table{
+table {
   width: 50%;
 }
-img{
-  width: 200px; 
-  height: 300px
+img {
+  width: 200px;
+  height: 300px;
 }
-#title:hover{
+#title:hover {
   color: blue;
-  cursor: pointer; 
+  cursor: pointer;
+}
+input[type="text"],
+button {
+  width: 100%;
+  padding: 8px;
+}
+#register,
+#login {
+  border: 1px solid lightgray;
+  width: 350px;
+  padding: 20px;
 }
 
