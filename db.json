@@ -1,0 +1,41 @@
+{
+  "posts": [],
+  "comments": [],
+  "users": [
+    {
+      "id": 1,
+      "username": "larva",
+      "password": "pwd",
+      "fullname": "larva cartoon",
+      "role": "user"
+    },
+    {
+      "id": 2,
+      "username": "coba",
+      "password": "password",
+      "fullname": "coba lagi",
+      "role": "user"
+    },
+    {
+      "username": "test",
+      "password": "123",
+      "fullname": "test post data",
+      "role": "admin",
+      "id": 3
+    },
+    {
+      "username": "nanda",
+      "password": "123",
+      "fullname": "ernanda",
+      "role": "user",
+      "id": 4
+    },
+    {
+      "username": "abc",
+      "password": "123",
+      "fullname": "coba aja",
+      "role": "admin",
+      "id": 5
+    }
+  ]
+}
