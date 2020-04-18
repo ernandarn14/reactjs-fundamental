@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Link, Redirect } from 'react-router-dom'
 class AuthScreen extends React.Component {
     state = {
         userArr: [],
@@ -7,11 +8,14 @@ class AuthScreen extends React.Component {
         pass: "",
         repeatPass: "",
         userLogin: "",
-        passLogin: ""
+        isLoggedIn: false,
+        currUser: "",
+        passLogin: "",
+        activeEditIdx: null
 
     }
     render() {
-        const { username, pass, repeatPass, userArr, userLogin, passLogin } = this.state
+        const { username, pass, repeatPass, userArr, userLogin, passLogin, activeEditIdx, isLoggedIn, currUser } = this.state
 
         const inputText = (event, field) => {
             this.setState({ [field]: event.target.value })
@@ -36,17 +40,61 @@ class AuthScreen extends React.Component {
 
             if (login) {
                 (alert('Login berhasil'))
-                this.setState({ userLogin: "", passLogin: "" })
+                this.setState({ isLoggedIn: true, currUser: username, userLogin: "", passLogin: "" })
                 return ReactDOM.render(<p>Welcome, {userLogin}!</p>, document.getElementById('gretting'))
             } else {
                 return alert('Username atau Password Salah')
             }
-
         }
 
+        const renderUser = () => {
+            return userArr.map((val, idx) => {
+                if (idx == activeEditIdx) {
+                return (
+                    <tr>
+                        <td>{idx + 1}</td>
+                        <td> <input type="text" placeholder={val.username} /></td>
+                        <td>
+                            <input
+                                type="button"
+                                value="Delete"
+                                className="btn btn-danger"
+                                onClick={() => deleteUser(idx)}
+                            />
+                        </td>
+                    </tr>
+                );
+                } else {
+                    return (
+                        <tr>
+                            <td>{idx + 1}</td>
+                            <td>{val.username}</td>
+                            <td>
+                            <Link to={"/profile/" + val.username}>
+                                <input
+                                    type="button"
+                                    value="Edit"
+                                    className="btn btn-warning"
+                                    onClick={() => this.setState({ activeEditIdx: idx })}
+                                />
+                                </Link>
+                            </td>
+                        </tr>
+                    );
+                }
+            });
+        }
+
+        const deleteUser = (idx) => {
+            let temp = [...userArr]
+            temp.splice(idx, 1)
+            this.setState({ userArr: temp })
+        }
+
+        if (!isLoggedIn){
         return (
             <div
-                className="d-flex justify-content-center align-items-center flex-column"
+                className="d-flex justify-content-center align-items-center flex-column text-center"
             >
                 <h1>Welcome to Auth Screen</h1><br /><br />
                 <div id="register" >
@@ -63,8 +111,25 @@ class AuthScreen extends React.Component {
                     <button onClick={islogin} className="btn btn-primary">Login</button><br /><br />
                     <h3 id="gretting"></h3>
                 </div>
+                <br />
+                <div>
+                    <table style={{width: "400px"}}>
+                        <thead>
+                            <tr>
+                                <td>No</td>
+                                <td>User</td>
+                                <td>Action</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {renderUser()}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        )
+        )} else {
+            return <Redirect to={"/profile/" + this.props.currUser} />
+        }
     }
 }
 
