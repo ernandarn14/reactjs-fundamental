@@ -29,13 +29,6 @@
       "fullname": "ernanda",
       "role": "user",
       "id": 4
-    },
-    {
-      "username": "abc",
-      "password": "123",
-      "fullname": "coba aja",
-      "role": "admin",
-      "id": 5
     }
   ]
 }

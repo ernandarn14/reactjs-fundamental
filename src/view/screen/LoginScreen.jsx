@@ -2,6 +2,8 @@ import React from "react"
 import Axios from 'axios'
 import { API_URL } from '../../constant/API'
 import { Redirect } from 'react-router-dom'
+import swal from 'sweetalert'
+
 
 export default class LoginScreen extends React.Component {
     state = {
@@ -25,9 +27,9 @@ export default class LoginScreen extends React.Component {
             }
         })
             .then((res) => {
-                console.log(res)
+                console.log(res)    
                 if (res.data.length !== 0) {
-                    alert('Login berhasil')
+                    swal('Selamat', 'Login berhasil', 'success')
                     this.setState({ userLogin: "", passLogin: "", isLogin: true, currentUser: userLogin })
                 }
                 else {

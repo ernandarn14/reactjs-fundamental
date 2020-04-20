@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default class Navbar extends React.Component{
+ class Navbar extends React.Component{
     render(){
         return(
             <div className='d-flex justify-content-around align-items-center'
@@ -9,8 +10,17 @@ export default class Navbar extends React.Component{
                 <Link to="/register">Register</Link>
                 <Link to="/login">Login</Link>
                 <Link to="/profile">Profile</Link>
+                {this.props.todo.todoInput}
             </div>
             
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        todo: state.todo
+    }
+}
+
+export default connect(mapStateToProps)(Navbar)
