@@ -3,9 +3,10 @@ import Axios from 'axios'
 import { API_URL } from '../../constant/API'
 import { Redirect } from 'react-router-dom'
 import swal from 'sweetalert'
+import { getUser } from "../../redux/actions";
+import { connect } from "react-redux";
 
-
-export default class LoginScreen extends React.Component {
+class LoginScreen extends React.Component {
     state = {
         userLogin: "",
         passLogin: "",
@@ -30,6 +31,7 @@ export default class LoginScreen extends React.Component {
                 console.log(res)    
                 if (res.data.length !== 0) {
                     swal('Selamat', 'Login berhasil', 'success')
+                    this.props.onGetUser(userLogin)
                     this.setState({ userLogin: "", passLogin: "", isLogin: true, currentUser: userLogin })
                 }
                 else {
@@ -64,3 +66,15 @@ export default class LoginScreen extends React.Component {
         }
     }
 }
+
+const stateMapToProps = (state) => {
+    return {
+        user: state.user,
+    };
+};
+
+const mapDispatchToProps = {
+    onGetUser: getUser,
+};
+
+export default connect(stateMapToProps, mapDispatchToProps)(LoginScreen);

@@ -1,6 +1,7 @@
 import React from 'react'
 import ProfileScreen from './ProfileScreen'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class InputScreen extends React.Component {
     state = {
@@ -18,6 +19,7 @@ class InputScreen extends React.Component {
 
         return(
             <div className="container d-flex flex-column align-items-center">
+                <h1>{this.props.todo.todoInput}</h1>
                 <h1>Input Screen</h1>
                 <h3>Username:  {username}</h3>
                 <h3>Email:  {email}</h3>
@@ -35,5 +37,10 @@ class InputScreen extends React.Component {
     }
   
 }
+const mapStateToProps = state => {
+    return {
+        todo: state.todo
+    }
+}
 
-export default InputScreen
+export default connect(mapStateToProps)(InputScreen)

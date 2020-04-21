@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Axios from 'axios';
+import { API_URL } from '../../constant/API'
 
  class Navbar extends React.Component{
     render(){
@@ -10,7 +12,9 @@ import { connect } from 'react-redux'
                 <Link to="/register">Register</Link>
                 <Link to="/login">Login</Link>
                 <Link to="/profile">Profile</Link>
-                {this.props.todo.todoInput}
+                {/* <Link to="/input">Input</Link>
+                <Link to="/todo">To Do</Link> */}
+                {this.props.user.username}
             </div>
             
         )
@@ -19,7 +23,8 @@ import { connect } from 'react-redux'
 
 const mapStateToProps = state => {
     return {
-        todo: state.todo
+        todo: state.todo,
+        user: state.user
     }
 }
 

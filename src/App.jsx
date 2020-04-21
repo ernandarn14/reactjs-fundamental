@@ -15,6 +15,7 @@ import RegisterScreen from './view/screen/RegisterScreen';
 import LoginScreen from './view/screen/LoginScreen';
 import NewAuthScreen from './view/screen/NewAuthScreen';
 import ProfileUser from './view/screen/ProfileUser';
+import ToDoReduxScreen from './view/screen/ToDoReduxScreen'
 
 
 
@@ -96,6 +97,8 @@ function App() {
         <Route exact path="/login" component={LoginScreen} />
         <Route exact path="/auth" component={NewAuthScreen} />
         <Route exact path="/profile/:username" component={ProfileUser} />
+        <Route exact path="/input" component={InputScreen} />
+        <Route exact path="/todo" component={ToDoReduxScreen} />
         <Route path="*" component={PageNotFound} />
       </Switch>
     </>
