@@ -10,23 +10,23 @@
       "role": "user"
     },
     {
-      "id": 2,
-      "username": "coba",
-      "password": "password",
-      "fullname": "coba lagi",
-      "role": "user"
-    },
-    {
       "username": "test",
       "password": "123",
       "fullname": "test post data",
       "role": "admin",
-      "id": 3
+      "id": 2
     },
     {
       "username": "nanda",
       "password": "123",
       "fullname": "ernanda",
+      "role": "user",
+      "id": 3
+    },
+    {
+      "username": "sandhy",
+      "password": "123",
+      "fullname": "sandhyp",
       "role": "user",
       "id": 4
     }

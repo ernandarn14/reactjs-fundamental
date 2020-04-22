@@ -2,15 +2,16 @@ import React from "react";
 import Axios from "axios";
 import { API_URL } from "../../constant/API";
 import { Spinner } from 'reactstrap';
+import { registerHandler } from "../../redux/actions";
+import { connect } from "react-redux";
 
-export default class RegisterScreen extends React.Component {
+class RegisterScreen extends React.Component {
   state = {
     userArr: [],
     username: "",
     pass: "",
     repeatPass: "",
     fullName: "",
-    role: "",
     isSubmit: false
   };
 
@@ -19,52 +20,65 @@ export default class RegisterScreen extends React.Component {
   };
 
   registerData = () => {
-    const { username, pass, repeatPass, fullName, role, isSubmit } = this.state;
+    const { username, pass, repeatPass, fullName, isSubmit } = this.state;
 
-    this.setState({isSubmit: true})
-    setTimeout(() => {
-    Axios.get(`${API_URL}/users`, {
-      params: {
-        username: username,
-      },
-    }).then((res) => {
-      if (res.data.length == 0) {
-        if (pass === repeatPass) {
-          Axios.post(`${API_URL}/users`, {
-            username: username,
-            password: pass,
-            fullname: fullName,
-            role: role,
-          })
-            .then((res) => {
-              console.log(res);
-              this.setState({ userArr: res.data, isSubmit: false });
-              alert("Selamat Anda Berhasil Register");
-              this.setState({
-                username: "",
-                pass: "",
-                repeatPass: "",
-                fullName: "",
-                role: "",
-              });
-            })
-            .catch((err) => {
-              alert("Registrasi Gagal");
-              this.setState({ isSubmit: false });
-            });
-        } else {
-          alert("Password tidak cocok");
-          this.setState({ isSubmit: false });
-        }
-      } else {
-        alert("Username sudah ada");
-        this.setState({ isSubmit: false });
-      }
-    }) }, 2000);
+    const newUser = {
+      username,
+      password: pass,
+      fullname: fullName,
+      role: "user"
+    }
+
+    if (pass == repeatPass) {
+      this.props.onRegister(newUser)
+    } else {
+      alert('Password tidak cocok')
+    }
+
+    // this.setState({isSubmit: true})
+    // setTimeout(() => {
+    // Axios.get(`${API_URL}/users`, {
+    //   params: {
+    //     username: username,
+    //   },
+    // }).then((res) => {
+    //   if (res.data.length == 0) {
+    //     if (pass === repeatPass) {
+    //       Axios.post(`${API_URL}/users`, {
+    //         username: username,
+    //         password: pass,
+    //         fullname: fullName,
+    //         role: role,
+    //       })
+    //         .then((res) => {
+    //           console.log(res);
+    //           this.setState({ userArr: res.data, isSubmit: false });
+    //           alert("Selamat Anda Berhasil Register");
+    //           this.setState({
+    //             username: "",
+    //             pass: "",
+    //             repeatPass: "",
+    //             fullName: "",
+    //             role: "",
+    //           });
+    //         })
+    //         .catch((err) => {
+    //           alert("Registrasi Gagal");
+    //           this.setState({ isSubmit: false });
+    //         });
+    //     } else {
+    //       alert("Password tidak cocok");
+    //       this.setState({ isSubmit: false });
+    //     }
+    //   } else {
+    //     alert("Username sudah ada");
+    //     this.setState({ isSubmit: false });
+    //   }
+    // }) }, 2000);
   }
 
   render() {
-    const { username, pass, repeatPass, fullName, role, isSubmit } = this.state;
+    const { username, pass, repeatPass, fullName, isSubmit } = this.state;
 
     return (
       <div className="d-flex justify-content-center align-items-center flex-column text-center">
@@ -73,6 +87,7 @@ export default class RegisterScreen extends React.Component {
         <br />
         <div id="register">
           <h3>Register</h3>
+          <p>username: {this.props.user.username}</p>
           <br />
           <input
             onChange={(e) => this.inputHandler(e, "username")}
@@ -101,13 +116,13 @@ export default class RegisterScreen extends React.Component {
             value={fullName}
             placeholder="Full Name"
           />
-          <br />
+          {/* <br />
           <input
             onChange={(e) => this.inputHandler(e, "role")}
             type="text"
             value={role}
             placeholder="Role"
-          />
+          /> */}
           <br />
           <br />
           <br />
@@ -120,3 +135,16 @@ export default class RegisterScreen extends React.Component {
     );
   }
 }
+
+const stateMapToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = {
+  onRegister: registerHandler
+};
+
+export default connect(stateMapToProps, mapDispatchToProps)(RegisterScreen);
+

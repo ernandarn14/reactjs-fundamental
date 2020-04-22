@@ -3,7 +3,7 @@ import Axios from 'axios'
 import { API_URL } from '../../constant/API'
 import { Redirect } from 'react-router-dom'
 import swal from 'sweetalert'
-import { getUser } from "../../redux/actions";
+import { getUser, loginHandler } from "../../redux/actions";
 import { connect } from "react-redux";
 
 class LoginScreen extends React.Component {
@@ -20,27 +20,32 @@ class LoginScreen extends React.Component {
     }
 
     loginUser = () => {
-        const { userLogin, passLogin, currentUser } = this.state
-        Axios.get(`${API_URL}/users`, {
-            params: {
-                username: userLogin,
-                password: passLogin,
-            }
-        })
-            .then((res) => {
-                console.log(res)    
-                if (res.data.length !== 0) {
-                    swal('Selamat', 'Login berhasil', 'success')
-                    this.props.onGetUser(userLogin)
-                    this.setState({ userLogin: "", passLogin: "", isLogin: true, currentUser: userLogin })
-                }
-                else {
-                    alert('Username atau Password Salah')
-                }
-            })
-            .catch((err) => {
-                alert('Login Gagal')
-            })
+        const { userLogin, passLogin } = this.state
+        const userData = {
+            username: userLogin,
+            password: passLogin
+        }
+        this.props.onLogin(userData)
+        // Axios.get(`${API_URL}/users`, {
+        //     params: {
+        //         username: userLogin,
+        //         password: passLogin,
+        //     }
+        // })
+        //     .then((res) => {
+        //         console.log(res)    
+        //         if (res.data.length !== 0) {
+        //             swal('Selamat', 'Login berhasil', 'success')
+        //             this.props.onGetUser(userLogin)
+        //             this.setState({ userLogin: "", passLogin: "", isLogin: true, currentUser: userLogin })
+        //         }
+        //         else {
+        //             alert('Username atau Password Salah')
+        //         }
+        //     })
+        //     .catch((err) => {
+        //         alert('Login Gagal')
+        //     })
     }
 
     render() {
@@ -54,15 +59,16 @@ class LoginScreen extends React.Component {
                     <h1>Welcome to Login Screen</h1><br /><br />
                     <div id="login">
                         <h3>Login</h3><br />
+                        <p>username: {this.props.user.username}</p>
                         <input onChange={(e) => this.inputHandler(e, 'userLogin')} id="username" type="text" value={userLogin} placeholder="Username" /><br />
                         <input onChange={(e) => this.inputHandler(e, 'passLogin')} id="password" type="text" value={passLogin} placeholder="Password" /><br /><br />
                         <button onClick={this.loginUser} className="btn btn-primary">Login</button><br /><br />
                     </div>
-                  
+
                 </div >
             )
         } else {
-            return <Redirect to={`/profile/${currentUser}`} />
+            return <Redirect to={`/profile/${userLogin}`} />
         }
     }
 }
@@ -74,7 +80,7 @@ const stateMapToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    onGetUser: getUser,
+    onLogin: loginHandler
 };
 
 export default connect(stateMapToProps, mapDispatchToProps)(LoginScreen);

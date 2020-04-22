@@ -16,10 +16,12 @@ import LoginScreen from './view/screen/LoginScreen';
 import NewAuthScreen from './view/screen/NewAuthScreen';
 import ProfileUser from './view/screen/ProfileUser';
 import ToDoReduxScreen from './view/screen/ToDoReduxScreen'
+import Cookie from 'universal-cookie'
 
+const cookieObject = new Cookie()
 
+class App extends React.Component {
 
-function App() {
   // let arrBooks = [
   //   {
   //     author: "Margaret Atwood",
@@ -69,40 +71,42 @@ function App() {
   //     )
   //   })
   // }
-  return (
-    // <div className="App">
-    //   <h1>Hello</h1>
-    //   <h1>Welcome to Catalog!</h1>
-    //   <br></br><br></br><br></br>
-    //   <div className="row offset-md-0">
-    //     {renderBook()}
-    //   </div>
-    //   <CounterScreen />
-    //   <InputScreen />
-    //   <div className="row offset-md-4">
-    //     <AuthScreen />
-    //   </div>
-    //   <LifeCycleScreen />
-    // </div>
-    <>
-      <Navbar />
-      <Switch>
-        {/* <Route exact path="/" component={HomeScreen} />
+  render() {
+    return (
+      // <div className="App">
+      //   <h1>Hello</h1>
+      //   <h1>Welcome to Catalog!</h1>
+      //   <br></br><br></br><br></br>
+      //   <div className="row offset-md-0">
+      //     {renderBook()}
+      //   </div>
+      //   <CounterScreen />
+      //   <InputScreen />
+      //   <div className="row offset-md-4">
+      //     <AuthScreen />
+      //   </div>
+      //   <LifeCycleScreen />
+      // </div>
+      <>
+        <Navbar />
+        <Switch>
+          {/* <Route exact path="/" component={HomeScreen} />
         <Route exact path="/auth" component={AuthScreen} />
         <Route exact path="/input" component={InputScreen} />
         <Route exact path="/counter" component={CounterScreen} />
         <Route exact path="/profile/:pikachu" component={ProfileScreen} /> */}
-        <Route exact path="/" component={HomeScreen} />
-        <Route exact path="/register" component={RegisterScreen} />
-        <Route exact path="/login" component={LoginScreen} />
-        <Route exact path="/auth" component={NewAuthScreen} />
-        <Route exact path="/profile/:username" component={ProfileUser} />
-        <Route exact path="/input" component={InputScreen} />
-        <Route exact path="/todo" component={ToDoReduxScreen} />
-        <Route path="*" component={PageNotFound} />
-      </Switch>
-    </>
-  );
+          <Route exact path="/" component={HomeScreen} />
+          <Route exact path="/register" component={RegisterScreen} />
+          <Route exact path="/login" component={LoginScreen} />
+          <Route exact path="/auth" component={NewAuthScreen} />
+          <Route exact path="/profile/:username" component={ProfileUser} />
+          <Route exact path="/input" component={InputScreen} />
+          <Route exact path="/todo" component={ToDoReduxScreen} />
+          <Route path="*" component={PageNotFound} />
+        </Switch>
+      </>
+    )
+  }
 }
 
 export default withRouter(App);
