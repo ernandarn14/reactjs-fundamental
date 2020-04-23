@@ -25,6 +25,9 @@ export default (state = init_state, action) => {
     }
     else if (action.type == "ON_REGISTER_FAILL"){
         return { ...state, errMsg: action.payload }
+    } else if (action.type == "LOGOUT_SUCCESS"){
+        const { username, id } = action.payload
+        return { ...state, username, id }
     }
     // else if (action.type == "TESTING") {
     //     return { ...state, testing: action.payload };

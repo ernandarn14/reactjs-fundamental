@@ -17,10 +17,22 @@ import NewAuthScreen from './view/screen/NewAuthScreen';
 import ProfileUser from './view/screen/ProfileUser';
 import ToDoReduxScreen from './view/screen/ToDoReduxScreen'
 import Cookie from 'universal-cookie'
+import { connect } from 'react-redux'
+import { userKeepLogin } from "./redux/actions"
+
 
 const cookieObject = new Cookie()
 
 class App extends React.Component {
+  componentDidMount() {
+    let cookieResult = cookieObject.get("authData")
+    console.log(cookieResult)
+    if (cookieResult) {
+      this.props.userKeepLogin(cookieResult)
+    }
+  }
+
+  
 
   // let arrBooks = [
   //   {
@@ -71,6 +83,8 @@ class App extends React.Component {
   //     )
   //   })
   // }
+
+
   render() {
     return (
       // <div className="App">
@@ -109,4 +123,14 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    user: state.user
+  }
+}
+
+const mapDispatchToProps = {
+  userKeepLogin
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

@@ -5,6 +5,9 @@ import { Redirect } from 'react-router-dom'
 import swal from 'sweetalert'
 import { getUser, loginHandler } from "../../redux/actions";
 import { connect } from "react-redux";
+import Cookie from 'universal-cookie'
+
+const cookieObject = new Cookie()
 
 class LoginScreen extends React.Component {
     state = {
@@ -20,7 +23,7 @@ class LoginScreen extends React.Component {
     }
 
     loginUser = () => {
-        const { userLogin, passLogin } = this.state
+        const { userLogin, passLogin, isLogin } = this.state
         const userData = {
             username: userLogin,
             password: passLogin
@@ -48,10 +51,22 @@ class LoginScreen extends React.Component {
         //     })
     }
 
+    //1. componenDidUpdate akan ketrigger ketika ada update state/props
+    //2. global state akan di map melalui mapStateToProps dan connect
+    //3. sehingga global state = props
+    //4. jika global state berubah, props juga berubah
+    //5. jika props berubah, maka akan trigger componentDidUpdate
+    componentDidUpdate() {
+        //1. jika this.props.user.id sudah terisi maka akan masuk dalam global state, dan cookie akan diset
+        if (this.props.user.id) {
+            cookieObject.set("authData", JSON.stringify(this.props.user))
+        }
+    }
+
     render() {
         const { userLogin, passLogin, isLogin, currentUser } = this.state
 
-        if (!isLogin) {
+        if (!this.props.user.id) {
             return (
                 <div
                     className="d-flex justify-content-center align-items-center flex-column text-center"
@@ -68,7 +83,7 @@ class LoginScreen extends React.Component {
                 </div >
             )
         } else {
-            return <Redirect to={`/profile/${userLogin}`} />
+            return <Redirect to={`/profile/${this.props.user.username}`} />
         }
     }
 }
