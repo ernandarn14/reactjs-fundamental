@@ -19,7 +19,7 @@ class Navbar extends React.Component {
 
     authHandler = () => {
         if (this.props.user.id) {
-            return <Link onClick={this.onlogoutHandler}>Logout</Link>
+            return <Link to="/" onClick={this.onlogoutHandler}>Logout</Link>
         } else {
             return <Link to="/login">Login</Link>
         }
