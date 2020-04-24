@@ -11,9 +11,8 @@ const cookieObject = new Cookie()
 
 class Navbar extends React.Component {
     onlogoutHandler = () => {
-        this.props.onLogout()
         cookieObject.remove("authData")
-        console.log('masuk')
+        this.props.onLogout()
         swal('Selamat', 'Logout Anda Berhasil', 'success')
     }
 
